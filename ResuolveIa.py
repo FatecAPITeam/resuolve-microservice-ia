@@ -30,7 +30,6 @@ pmt_mtrc = [
 target = 'system_cpu_usage'
 
 # conectando ao mongoDB
-# def connectMongo():
 cluster = MongoClient(
     "mongodb+srv://resuolve:123@cluster0.ogtku.mongodb.net/resuolve?retryWrites=true&w=majority")
 db = cluster['resuolve']
@@ -159,8 +158,6 @@ while True == True:
         break
     else:
         dfTest = pd.DataFrame(dicRt, index=[0])
-        # entrada = x, saida = y (target)
         print('resultado', rf1.predict(dfTest))
-        # entrada = x, saida = probabilidade de y (prob do targe)
         print(f'probabilidade de ser [0 e 1]', rf1.predict_proba(dfTest))
         sleep(5)
