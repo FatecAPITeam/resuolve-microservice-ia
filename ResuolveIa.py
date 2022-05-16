@@ -167,7 +167,6 @@ while True == True:
         if result == 1:
             alert_discord.alert(f'tem {percent[0] * 100} % de chances de cair')
         print(percent[0] * 100)
-        print('resultado', result)  # entrada = x, saida = y (target)
-        # entrada = x, saida = probabilidade de y (prob do targe)
+        print('resultado', result)
         print(f'probabilidade de ser [0 e 1]', percent[0])
         sleep(5)
