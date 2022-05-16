@@ -12,12 +12,12 @@ Para rodar o código localmente...
 * Python - 6.10.4
 * pip  - 22.0.4 
 * pandas  - 1.4.2
-prometheus-client   -  0.14.1
-prometheus-api-client   -   0.5.0
-scikit-learn    -   1.0.2
-seaborn     -   0.11.2
-scikit-learn   -  1.0.2
-pymongo   -   4.1.1
-numpy  -   1.22.3
-matplotlib  -  3.5.2
-requests   -  2.27.1S
+* prometheus-client   -  0.14.1
+* prometheus-api-client   -   0.5.0
+* scikit-learn    -   1.0.2
+* seaborn     -   0.11.2
+* scikit-learn   -  1.0.2
+* pymongo   -   4.1.1
+* numpy  -   1.22.3
+* matplotlib  -  3.5.2
+* requests   -  2.27.1S
