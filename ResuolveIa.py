@@ -1,6 +1,7 @@
 
 from pymongo import MongoClient
 from bson.json_util import dumps
+import alert_discord
 
 import pandas as pd
 import numpy as np
@@ -61,9 +62,7 @@ for i in range(minValue):
         listTarget.append(1)
     else:
         listTarget.append(0)
-
 dicTarget = {'Target': listTarget}
-
 dicdf.update(dicTarget)
 
 # Gerando as features de Treino
@@ -71,10 +70,10 @@ dicdf.update(dicTarget)
 for i in range(len(pmt_mtrc)):
     data = collection.find({"name": pmt_mtrc[i]})
     listadt = list(data)
-    listadt = listadt[0]
     listavalor = []
     for j in range(minValue):
-        valor = listadt.get('value')
+        valor = listadt[j]
+        valor = valor.get('value')
         listavalor.append(valor)
     dic1 = {pmt_mtrc[i]: listavalor}
     dicdf.update(dic1)
@@ -145,19 +144,30 @@ while True == True:
         dfRt = pd.read_json(uri)
         valorRt = dfRt.data[0]
         if valorRt == []:
-            print('servidor caiu')
             reset = True
-            break
         else:
             valorRt = valorRt[0]
             valorRt = valorRt.get('value')
             valorRt = valorRt[1]
             dicRt1 = {pmt_mtrc[i]: valorRt}
             dicRt.update(dicRt1)
+
     if reset == True:
-        break
+        alert_discord.alert('está offline')
+        print('servidor caiu')
+
     else:
         dfTest = pd.DataFrame(dicRt, index=[0])
-        print('resultado', rf1.predict(dfTest))
-        print(f'probabilidade de ser [0 e 1]', rf1.predict_proba(dfTest))
+
+        percent = rf1.predict_proba(dfTest)
+        percent = percent[0]
+        result = rf1.predict(dfTest)
+        result = result[0]
+
+        if result == 1:
+            alert_discord.alert(f'tem {percent[0] * 100} % de chances de cair')
+        print(percent[0] * 100)
+        print('resultado', result)  # entrada = x, saida = y (target)
+        # entrada = x, saida = probabilidade de y (prob do targe)
+        print(f'probabilidade de ser [0 e 1]', percent[0])
         sleep(5)
